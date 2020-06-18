@@ -257,12 +257,12 @@ namespace Nethermind.Dirichlet.Numerics
             }
             else if (target.Length == 20)
             {
-                BinaryPrimitives.WriteUInt32BigEndian(target.Slice(0, 4), (uint)s2);
+                BinaryPrimitives.WriteUInt32BigEndian(target.Slice(0, 4), (uint) s2);
                 BinaryPrimitives.WriteUInt64BigEndian(target.Slice(4, 8), s1);
                 BinaryPrimitives.WriteUInt64BigEndian(target.Slice(12, 8), s0);
             }
         }
-        
+
         public void ToLittleEndian(Span<byte> target)
         {
             BinaryPrimitives.WriteUInt64LittleEndian(target.Slice(0, 8), s0);
@@ -286,7 +286,7 @@ namespace Nethermind.Dirichlet.Numerics
                 throw new NotSupportedException();
             }
         }
-        
+
         public static void CreateFromBigEndian(out UInt256 c, ReadOnlySpan<byte> span)
         {
             ReadOnlySpan<ulong> ulongs = MemoryMarshal.Cast<byte, ulong>(span);
@@ -417,7 +417,7 @@ namespace Nethermind.Dirichlet.Numerics
                 Negate(ref c);
         }
 
-        public static void Create(out UInt256 c, BigInteger a)
+        public static void CreateOld(out UInt256 c, BigInteger a)
         {
             var sign = a.Sign;
             if (sign == -1)
@@ -428,6 +428,31 @@ namespace Nethermind.Dirichlet.Numerics
             c.s3 = (ulong) ((a >> 192));
             if (sign == -1)
                 Negate(ref c);
+        }
+
+        public static void Create(out UInt256 c, BigInteger a)
+        {
+            if (a.IsZero)
+            {
+                c = Zero;
+            }
+            else
+            {
+                int sign = a.Sign;
+                if (sign == -1)
+                {
+                    a = -a;
+                }
+
+                Span<byte> bytes = stackalloc byte[32];
+                Span<byte> bytes32 = stackalloc byte[32];
+                a.TryWriteBytes(bytes, out int bytesWritten, true, true);
+                bytes.CopyTo(bytes32.Slice(32 - bytesWritten, bytesWritten));
+
+                CreateFromBigEndian(out c, bytes32);
+                if (sign == -1)
+                    Negate(ref c);
+            }
         }
 
         public static void Create(out UInt256 c, double a)
