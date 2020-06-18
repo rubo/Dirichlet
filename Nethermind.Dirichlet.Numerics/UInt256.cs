@@ -618,23 +618,10 @@ namespace Nethermind.Dirichlet.Numerics
 
         public static implicit operator BigInteger(UInt256 a)
         {
-            BigInteger result = a.s0;
-            if (a.s1 != 0)
-            {
-                result |= (BigInteger) a.s1 << 64;
-            }
-
-            if (a.s2 != 0)
-            {
-                result |= (BigInteger) a.s2 << 128;
-            }
-
-            if (a.s3 != 0)
-            {
-                result |= (BigInteger) a.s3 << 192;
-            }
-
-            return result;
+            Span<byte> bytes = stackalloc byte[32];
+            a.ToBigEndian(bytes);
+            BigInteger bigInt = new BigInteger(bytes, true, true);
+            return bigInt;
         }
 
         public static UInt256 operator <<(UInt256 a, int b)
