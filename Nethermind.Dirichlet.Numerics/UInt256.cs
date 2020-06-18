@@ -447,7 +447,7 @@ namespace Nethermind.Dirichlet.Numerics
                 Span<byte> bytes = stackalloc byte[32];
                 Span<byte> bytes32 = stackalloc byte[32];
                 a.TryWriteBytes(bytes, out int bytesWritten, true, true);
-                bytes.CopyTo(bytes32.Slice(32 - bytesWritten, bytesWritten));
+                bytes.Slice(0, bytesWritten).CopyTo(bytes32.Slice(32 - bytesWritten, bytesWritten));
 
                 CreateFromBigEndian(out c, bytes32);
                 if (sign == -1)
