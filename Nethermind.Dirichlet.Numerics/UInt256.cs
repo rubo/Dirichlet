@@ -503,6 +503,7 @@ namespace Nethermind.Dirichlet.Numerics
         public bool IsOne => s0 == 1 && s1 == 0 && s2 == 0 && s3 == 0;
         public bool IsPowerOfTwo => (this & (this - 1)).IsZero;
         public bool IsEven => (s0 & 1) == 0;
+        public bool IsOdd => !IsEven;
         public int Sign => IsZero ? 0 : 1;
 
         public override string ToString()
