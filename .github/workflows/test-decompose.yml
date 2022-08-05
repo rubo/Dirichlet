@@ -1,0 +1,39 @@
+name: Test Nethermind.Decompose.Numerics
+
+on:
+  push:
+    #branches:
+    #  - main
+    #  - 'feature/**'
+    #paths:
+    #  - '.github/workflows/test-decompose.yml'
+    #  - 'Nethermind.*/**'
+  workflow_dispatch:
+
+jobs:
+  test-decompose:
+    env:
+      BUILD_CONFIG: release
+      PROJECT_NAME: Nethermind.Decompose.Numerics
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Check out repository
+        uses: actions/checkout@v3
+    
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install dependencies
+        run: dotnet restore
+    
+      - name: Build
+        working-directory: ${{ env.PROJECT_NAME }}
+        run: dotnet build -c ${{ env.BUILD_CONFIG }} --no-restore
+
+      - name: Test
+        working-directory: ${{ env.PROJECT_NAME }}.Test
+        run: dotnet test -c ${{ env.BUILD_CONFIG }} --no-restore

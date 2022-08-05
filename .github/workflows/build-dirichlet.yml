@@ -1,0 +1,32 @@
+name: Build Nethermind.Dirichlet.Numerics
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+    paths:
+      - '.github/workflows/build-dirichlet.yml'
+      - 'Nethermind.Dirichlet.Numerics/**'
+  workflow_dispatch:
+
+jobs:
+  build-dirichlet:
+    env:
+      BUILD_CONFIG: release
+      PROJECT_NAME: Nethermind.Dirichlet.Numerics
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Check out repository
+        uses: actions/checkout@v3
+    
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+    
+      - name: Build
+        working-directory: ${{ env.PROJECT_NAME }}
+        run: dotnet build -c ${{ env.BUILD_CONFIG }}
