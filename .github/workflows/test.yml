@@ -1,0 +1,39 @@
+name: Test
+
+on:
+  push:
+    paths:
+      - '.github/workflows/test.yml'
+      - 'Nethermind.*/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    env:
+      BUILD_CONFIG: release
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Check out repository
+        uses: actions/checkout@v3
+    
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build Nethermind.Dirichlet.Numerics
+        working-directory: Nethermind.Dirichlet.Numerics
+        run: dotnet build -c ${{ env.BUILD_CONFIG }} --no-restore
+    
+      - name: Build Nethermind.Decompose.Numerics
+        working-directory: Nethermind.Decompose.Numerics
+        run: dotnet build -c ${{ env.BUILD_CONFIG }} --no-restore
+
+      #- name: Test
+      #  working-directory: Nethermind.Decompose.Numerics.Test
+      #  run: dotnet test -c ${{ env.BUILD_CONFIG }} --no-restore
