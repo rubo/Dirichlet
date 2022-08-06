@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Authors>Nethermind</Authors>
-    <Copyright>Demerzel Solutions Limited</Copyright>
+    <Authors>Nethermind, Rick Sladkey</Authors>
+    <Copyright>Demerzel Solutions Limited, Rick Sladkey</Copyright>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
-    <PackageId>Nethermind.Dirichlet.Numerics</PackageId>
+    <PackageId>Nethermind.Numerics.Dirichlet</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nethermindeth/dirichlet</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
