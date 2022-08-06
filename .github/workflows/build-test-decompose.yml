@@ -1,17 +1,17 @@
-name: Test
+name: Build and test Decompose
 
 on:
   push:
     paths:
-      - '.github/workflows/test.yml'
-      - 'Nethermind.*/**'
+      - '.github/workflows/build-test-decompose.yml'
+      - 'Nethermind.Decompose.*/**'
   workflow_dispatch:
 
 jobs:
-  test:
+  build-test:
     env:
       BUILD_CONFIG: release
-    name: Test
+    name: Build and test
     runs-on: ubuntu-latest
     steps:
     
@@ -25,15 +25,11 @@ jobs:
 
       - name: Install dependencies
         run: dotnet restore
-
-      - name: Build Nethermind.Dirichlet.Numerics
-        working-directory: Nethermind.Dirichlet.Numerics
-        run: dotnet build -c ${{ env.BUILD_CONFIG }} --no-restore
     
-      - name: Build Nethermind.Decompose.Numerics
+      - name: Build
         working-directory: Nethermind.Decompose.Numerics
         run: dotnet build -c ${{ env.BUILD_CONFIG }} --no-restore
 
-      #- name: Test
-      #  working-directory: Nethermind.Decompose.Numerics.Test
-      #  run: dotnet test -c ${{ env.BUILD_CONFIG }} --no-restore
+      - name: Test
+        working-directory: Nethermind.Decompose.Numerics.Test
+        run: dotnet test -c ${{ env.BUILD_CONFIG }} --no-restore

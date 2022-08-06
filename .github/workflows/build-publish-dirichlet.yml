@@ -1,0 +1,44 @@
+name: Build and publish Dirichlet
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-publish-dirichlet.yml'
+      - 'Nethermind.Dirichlet.Numerics/**'
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish package'
+        default: false
+        required: false 
+        type: boolean
+
+jobs:
+  build-publish:
+    env:
+      BUILD_CONFIG: release
+    name: Build and publish if required
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Check out repository
+        uses: actions/checkout@v3
+    
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build Nethermind.Dirichlet.Numerics
+        working-directory: Nethermind.Dirichlet.Numerics
+        run: dotnet build -c ${{ env.BUILD_CONFIG }} --no-restore -p:ContinuousIntegrationBuild=true
+    
+      - name: Publish
+        if: ${{ inputs.publish }}
+        working-directory: Nethermind.Dirichlet.Numerics
+        run: |
+          dotnet pack -c ${{ env.BUILD_CONFIG }} --no-build
+          dotnet nuget push bin/${{ env.BUILD_CONFIG }}/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
