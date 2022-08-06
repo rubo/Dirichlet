@@ -11,7 +11,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <PackageId>Nethermind.Numerics.Dirichlet</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/nethermindeth/dirichlet</PackageProjectUrl>
+    <PackageProjectUrl>https://nethermind.io</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/nethermindeth/dirichlet</RepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
