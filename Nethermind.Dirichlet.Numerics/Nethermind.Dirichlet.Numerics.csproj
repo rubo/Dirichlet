@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Authors>Nethermind, Rick Sladkey</Authors>
-    <Copyright>Demerzel Solutions Limited, Rick Sladkey</Copyright>
+    <Authors>Nethermind</Authors>
+    <Copyright>Demerzel Solutions Limited</Copyright>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <PackageId>Nethermind.Numerics.Dirichlet</PackageId>
