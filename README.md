@@ -1,4 +1,7 @@
-### Dirichlet .NET Number Theory Library
+# Dirichlet .NET Number Theory Library
+
+[![Test and publish](https://github.com/nethermindeth/dirichlet/actions/workflows/build-publish-dirichlet.yml/badge.svg)](https://github.com/nethermindeth/dirichlet/actions/workflows/build-publish-dirichlet.yml)
+[![Nethermind.Numerics.Dirichlet](https://img.shields.io/nuget/v/Nethermind.Numerics.Dirichlet)](https://www.nuget.org/packages/Nethermind.Numerics.Dirichlet)
 
 This is a fork of ricksladkey/Dirichlet with significant structural and code changes. Please refer to the original repo. This fork is work in progress and should not be considered stable or correct.
 
@@ -10,6 +13,6 @@ Features:
 - High-performance Factorization
 - Optimized Arithmetic Functions and Algorithms
 
-Although it is fairly complete and well tested, it lacks the organization of a released library due to its evolution and the inclusion of various experimental ideas and highly-specialized applications.  In the algorithms in particular there are often many flavors of same thing in various attempts to increase performance.
+Although it is fairly complete and well tested, it lacks the organization of a released library due to its evolution and the inclusion of various experimental ideas and highly-specialized applications. In the algorithms in particular there are often many flavors of same thing in various attempts to increase performance.
 
 If there is any interest, I might separate things out and migrate more of the core to [Dirichlet.Numerics](https://github.com/ricksladkey/dirichlet-numerics).
